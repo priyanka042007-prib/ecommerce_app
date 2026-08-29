@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+import { API_URL } from '../config/api';
 import { ShoppingBag, ArrowRight } from 'lucide-react';
 
 const Home = () => {
@@ -9,7 +10,7 @@ const Home = () => {
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch('/api/products')
+    fetch(`${API_URL}/api/products`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data.slice(0, 4));

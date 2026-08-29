@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { API_URL } from '../config/api';
 import { Package } from 'lucide-react';
 
 const MyOrders = () => {
@@ -11,7 +12,7 @@ const MyOrders = () => {
   useEffect(() => {
     if (!token) return;
 
-    fetch('/api/orders/my', {
+    fetch(`${API_URL}/api/orders/my`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }

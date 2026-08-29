@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
+import { API_URL } from '../config/api';
 
 const Checkout = () => {
   const { cartItems, totalAmount, clearCart } = useContext(CartContext);
@@ -51,7 +52,7 @@ const Checkout = () => {
         totalAmount
       };
 
-      const response = await fetch('/api/orders', {
+      const response = await fetch(`${API_URL}/api/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

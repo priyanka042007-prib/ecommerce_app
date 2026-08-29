@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+import { API_URL } from '../config/api';
 import { ShoppingBag, ArrowLeft } from 'lucide-react';
 
 const ProductDetails = () => {
@@ -13,7 +14,7 @@ const ProductDetails = () => {
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch(`/api/products/${id}`)
+    fetch(`${API_URL}/api/products/${id}`)
       .then((res) => {
         if (!res.ok) throw new Error('Product not found');
         return res.json();

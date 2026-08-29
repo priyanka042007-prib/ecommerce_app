@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { API_URL } from '../config/api';
 import { Plus, Edit, Trash2, Shield, Package } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -34,7 +35,7 @@ const AdminDashboard = () => {
 
   const fetchProducts = () => {
     setProductLoading(true);
-    fetch('/api/products')
+    fetch(`${API_URL}/api/products`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -45,7 +46,7 @@ const AdminDashboard = () => {
 
   const fetchOrders = () => {
     setOrdersLoading(true);
-    fetch('/api/orders', {
+    fetch(`${API_URL}/api/orders`, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
       .then((res) => res.json())
@@ -69,7 +70,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     setMessage({ type: '', text: '' });
 
-    const url = editingProduct ? `/api/products/${editingProduct._id}` : '/api/products';
+    const url = editingProduct ? `${API_URL}/api/products/${editingProduct._id}` : `${API_URL}/api/products`;
     const method = editingProduct ? 'PUT' : 'POST';
 
     try {
@@ -125,7 +126,7 @@ const AdminDashboard = () => {
     if (!window.confirm('Are you sure you want to delete this product?')) return;
 
     try {
-      const response = await fetch(`/api/products/${id}`, {
+      const response = await fetch(`${API_URL}/api/products/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -142,7 +143,7 @@ const AdminDashboard = () => {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      const response = await fetch(`/api/orders/${orderId}/status`, {
+      const response = await fetch(`${API_URL}/api/orders/${orderId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

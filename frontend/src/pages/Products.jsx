@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+import { API_URL } from '../config/api';
 import { ShoppingBag, Search } from 'lucide-react';
 
 const Products = () => {
@@ -12,7 +13,7 @@ const Products = () => {
 
   const fetchProducts = () => {
     setLoading(true);
-    let url = '/api/products';
+    let url = `${API_URL}/api/products`;
     const params = new URLSearchParams();
     if (category) params.append('category', category);
     if (search) params.append('search', search);
