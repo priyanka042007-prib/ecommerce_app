@@ -27,9 +27,15 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify({ email, password })
     });
 
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      throw new Error(`Server returned status ${response.status}: Please try again.`);
+    }
+
     if (!response.ok) {
-      throw new Error(data.message || 'Login failed');
+      throw new Error(data?.message || 'Login failed');
     }
 
     const { token: userToken, ...userData } = data;
@@ -47,9 +53,15 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify({ name, email, password })
     });
 
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      throw new Error(`Server returned status ${response.status}: Please try again.`);
+    }
+
     if (!response.ok) {
-      throw new Error(data.message || 'Registration failed');
+      throw new Error(data?.message || 'Registration failed');
     }
 
     const { token: userToken, ...userData } = data;
